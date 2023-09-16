@@ -6,6 +6,27 @@ import { ValidateResturantCity, ValidateResturantSearchString } from "../../Vali
 import { ValidateResturantId } from "../../Validation/food";
 const Router = express.Router();
 
+
+//Route         /newResturant
+//Des           Create a resturant
+//Params        None
+//Access        Public
+//Method        Get
+
+Router.post("/newResturant", async(req, res) => {
+    try{
+        await ResturantModel.findName(req.body)
+
+        //DB
+        const newResturant = await ResturantModel.create(req.body)
+
+        res.status(200).json({newResturant})
+
+    } catch(error) {
+        return res.status(500).json({error: error.message});
+    }
+})
+
 //Route         /
 //Des           Get all resturants details
 //Params        None

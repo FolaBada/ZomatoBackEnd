@@ -28,5 +28,16 @@ const ResturantSchema = new mongoose.Schema({
     timestamps: true
 })
 
+ResturantSchema.statics.findName = async ({name}) => {
+    //check wether the email exists
+    const checkResturantByName = await ResturantModel.findOne({name});
+
+    if(checkResturantByName) {
+      throw new Error ("Resturant already exists");
+    }
+
+    return false;
+};
+
 
 export const ResturantModel = mongoose.model("Resturants", ResturantSchema)
